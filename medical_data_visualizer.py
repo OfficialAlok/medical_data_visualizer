@@ -27,11 +27,12 @@ def draw_cat_plot():
         data=df_cat, x = "variable", y = "counts",
         col="cardio", kind="bar", height=4, hue='value', 
         aspect= 1.2)
+    plot.set_axis_labels("variable", "total")
 
     
 
     # 8
-    fig = plot
+    fig = plot.fig
 
 
     # 9
@@ -52,14 +53,14 @@ def draw_heat_map():
     corr = df_heat.corr()
 
     # 13
-    mask = np.triu(corr)
+    mask = np.triu(np.ones_like(corr))
 
 
     # 14
     fig, ax = plt.subplots(figsize=(12, 10))
 
     # 15
-    ax = sns.heatmap(corr, annot = True, fmt=".1f", mask=mask,
+    sns.heatmap(corr, annot = True, fmt=".1f", mask=mask, ax=ax,
                     linewidth =.5)
 
 
