@@ -45,9 +45,10 @@ def draw_heat_map():
     df_heat = df[(df['ap_lo'] <= df['ap_hi']) & (df['height'] >= df['height'].quantile(0.025))
                 & (df['height'] <= df['height'].quantile(0.975))
                 & (df['weight'] >= df['weight'].quantile(0.025))
-                & (df['weight'] >= df['weight'].quantile(0.975))]
+                & (df['weight'] <= df['weight'].quantile(0.975))]
 
     # 12
+
     corr = df_heat.corr()
 
     # 13
@@ -55,14 +56,14 @@ def draw_heat_map():
 
 
     # 14
-    fig, ax = None
+    fig, ax = plt.subplots(figsize=(12, 10))
 
     # 15
+    ax = sns.heatmap(corr, annot = True, fmt=".1f", mask=mask,
+                    linewidth =.5)
 
 
 
     # 16
     fig.savefig('heatmap.png')
     return fig
-
-draw_heat_map()
